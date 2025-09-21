@@ -2,12 +2,12 @@
 
 ## Assignment
 
-This project will draw upon basic data engineering and data science skills. Using the freely available
+This project demonstrates basic data engineering and data science skills. Using the freely available
 NYC Trip Record data you will calculate CO2 output for rides within 2024 and perform some basic statistical
 analysis based on transformations you add to these data.
 
 Use the structure of this repository to submit your work. Complete the Python scripts as indicated below,
-and add DBT files within that subfolder.
+and add DBT files within the appropriate subfolder.
 
 Begin by forking this repository into your own account within GitHub. You will be unable to push
 changes back to this source:
@@ -33,6 +33,8 @@ Complete the `load.py` script to create a local, persistent DuckDB database that
 2. A full table of GREEN taxi trips for all of 2024.
 3. A lookup table of `vehicle_emissions` based on the included CSV file above.
 
+Your `load.py` script should also output raw row counts for each of these tables, before cleaning.
+
 ## Clean
 
 Trips should be cleaned and checked for the following conditions (whether or not they exist):
@@ -44,7 +46,7 @@ Trips should be cleaned and checked for the following conditions (whether or not
 5. Remove any trips lasting more than 1 day in length (86400 seconds).
 
 Complete the `clean.py` script to perform these steps and to check/verify that these conditions no longer exist in 
-either the YELLOW or GREEN trip tables in your DuckDB database.
+either the YELLOW or GREEN trip tables within your DuckDB database.
 
 ## Transform
 
@@ -78,7 +80,10 @@ on the X-axis and CO2 total output on the Y-axis. Render two lines/bars, one eac
 Your script should output each calculation WITH a label explaining the value. The plot should be output as a PNG/JPG/GIF image 
 committed within your project.
 
-## Rubric
+## Grading Rubric
 
-You will be graded according to the rubric distributed with this assignment. Partial credit is given, and you may
+Add, commit, and push your work and submit the URL to your repository for grading. You should NOT commit any Parquet or local 
+database files to your repository.
+
+You will be graded according to the rubric distributed with this assignment. Partial credit will be given, and you may
 choose to complete only some of the requirements.
