@@ -2,6 +2,17 @@
 
 ## Assignment
 
+This project will draw upon basic data engineering and data science skills. Using the freely available
+NYC Trip Record data you will calculate CO2 output for rides within 2024 and perform some basic statistical
+analysis based on transformations you add to these data.
+
+Use the structure of this repository to submit your work. Complete the Python scripts as indicated below,
+and add DBT files within that subfolder.
+
+Begin by forking this repository into your own account within GitHub. You will be unable to push
+changes back to this source:
+
+[**FORK**](https://github.com/uvasds-systems/ds3022-data-project-1/fork)
 
 ## Data
 
@@ -41,7 +52,8 @@ After cleaning you should have 2 cleaned trip tables representing YELLOW and GRE
 transformations to the data:
 
 1. Calculate total CO2 output per trip based on the `co2_grams_per_mile` value in the `vehicle_emissions.csv` file,
-divide by 1000 (to calculate Kg), and insert that value as a new column named `trip_co2_kgs`.
+divide by 1000 (to calculate Kg), and insert that value as a new column named `trip_co2_kgs`. This calculation should
+be based upon a lookup of the vehicle_emissions table and not hard-coded as a numberic figure.
 2. Extract the HOUR of the day of the `pickup_time` and insert it as a new column `hour_of_day`.
 3. Extract the DAY OF WEEK from the pickup time and insert it as a new column `day_of_week`.
 4. Extract the WEEK NUMBER from the pickup time and insert it as a new column `week_of_year`.
@@ -49,7 +61,7 @@ divide by 1000 (to calculate Kg), and insert that value as a new column named `t
 
 Complete the `transform.py` script to perform these steps using python-based DuckDB commands.
 
-For an additional 10 points, perform these steps using models in DBT. Save these files to `dbt/models/`.
+For an additional 6 points, perform these steps using models in DBT. Save these files to `dbt/models/`.
 
 ## Analyze
 
@@ -60,6 +72,11 @@ Complete the `analysis.py` script to report the following calculations using Duc
 3. Across the entire year, what on average is the most carbon heavy day of the week for YELLOW and for GREEN trips? (Sun-Sat)
 4. Across the entire year, what on average is the most carbon heavy week of the year for YELLOW and for GREEN trips? (1-52)
 5. Across the entire year, what on average is the most carbon heavy month of the year for YELLOW and for GREEN trips? (Jan-Dec)
+6. Using a plotting library of your choice (matplotlib, seaborn, etc.) generate a time-series or histogram plot with MONTH
+on the X-axis and CO2 total output on the Y-axis. Render two lines/bars, one each for YELLOW and GREEN taxi trips.
+
+Your script should output each calculation WITH a label explaining the value. The plot should be output as a PNG/JPG/GIF image 
+committed within your project.
 
 ## Rubric
 
