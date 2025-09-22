@@ -1,1 +1,2 @@
 import duckdb
+import logging
