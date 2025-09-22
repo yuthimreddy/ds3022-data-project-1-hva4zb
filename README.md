@@ -114,4 +114,5 @@ You will be graded according to the rubric distributed with this assignment. Par
 
 ## Submission
 
-Use the rubric to track your work and scope of tasks. Then, record your answers to each rubric element in this Canvas assignment.
+Use the rubric to track your work and scope of tasks. Edit the PDF version of the rubric using Adobe Acrobat Reader, indicating
+what tasks you attempted and those you did not. Save that revised PDF and submit as part of the Canvas assignment.
