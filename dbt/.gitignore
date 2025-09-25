@@ -1,0 +1,5 @@
+# DB Files:
+*.duckdb
+*.parquet
+*.log
+
