@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: main # Corresponds to the schema in profiles.yml
+    tables:
+      - name: yellow_trips
+      - name: green_trips
+      - name: vehicle_emissions
