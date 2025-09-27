@@ -2,6 +2,7 @@ import duckdb
 import logging
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import os
 
 logging.basicConfig(
@@ -86,36 +87,57 @@ def analysis():
             logger.info(f"Carbon light month for {taxi_type} taxis: {least_month}")
 
 
-    #6) Plotting histogram of co2 emissions by Month:
+    #6) -- PLOTTING HISTOGRAMS OF MONTHLY CO2 EMISSIONS FOR BOTH YELLOW AND GREEN TAXIS FROM 2015-2024
 
+    # a) Querying data for the plot: 
         plot_df = con.execute(f"""
             SELECT
-                EXTRACT(month FROM pickup_datetime) AS year,
+                EXTRACT(year FROM pickup_datetime) AS year,
                 trip_month,
                 taxi_type,
                 SUM(trip_co2_kgs) AS total_co2
                     FROM transform_trips
-                    GROUP BY ALL ORDER BY ALL;
+                        WHERE EXTRACT(year FROM pickup_datetime) >= 2015
+                              GROUP BY ALL ORDER BY ALL;
             """).fetchdf()
             
-        plot_df['date'] = pd.to_datetime(plot_df['year'].astype(str) + '-' + plot_df['month_of_year'].astype(str))
+        # b) Plotting dates (trip_month on x and co2 emissions on y-axis)
+        plot_df['date'] = pd.to_datetime(plot_df['year'].astype(str) + '-' + plot_df['trip_month'].astype(str))
         
         plt.style.use('seaborn-v0_8-whitegrid')
         fig, ax = plt.subplots(figsize=(15, 8))
+        # making 2 subplots:
+        fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(15, 12), sharex=True)
+        fig.suptitle('Total Monthly CO2 Emissions by Taxi Type (2015-2024)', fontsize=16, y=0.95)
         
-        for taxi in ['yellow', 'green']:
+
+        # plotting taxis with their respective colors:
+        colors = {'yellow':'#FFBF00', 'green':'#00693E'}
+
+
+        # making loop so we plot for both yellow and green taxis:
+        for i, taxi in enumerate(['yellow', 'green']):
+            ax = axes[i]
             subset = plot_df[plot_df['taxi_type'] == taxi]
-            ax.plot(subset['date'], subset['total_co2'], label=f'{taxi.title()} Taxis', marker='o')
+            ax.plot(subset['date'], subset['total_co2'], label=f'{taxi.title()} Taxis', marker='o', color=colors[taxi])
         
-        ax.set_title('Total Monthly CO2 Emissions by Taxi Type (2015-2024)', fontsize=14)
-        ax.set_xlabel('Year')
-        ax.set_ylabel('Total CO2 Emissions (Kilograms)')
-        ax.legend()
-        
+            ax.set_title(f'{taxi.title()} Taxis', fontsize=14)
+            ax.set_xlabel('Year')
+            ax.set_ylabel('Total CO2 Emissions (Kilograms)')
+            ax.legend()
+            ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+
+        axes[1].set_xlabel('Year', fontsize=12)
+        axes[1].xaxis.set_major_locator(mdates.YearLocator())
+        axes[1].xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+        plt.xlim([pd.to_datetime('2015-01-01'), pd.to_datetime('2024-12-31')])
+
+    # Saving plot as png file in a new directory called output:
         os.makedirs('output', exist_ok=True)
         plot_filename = 'output/monthly_co2_emissions_2015_2024.png'
         plt.savefig(plot_filename)
         
+        # Confirmation Message:
         print(f"\nPlot successfully saved to {plot_filename}")
         logger.info(f"Plot successfully saved to {plot_filename}")
 
