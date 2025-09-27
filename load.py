@@ -58,7 +58,7 @@ def setup_database_and_tables(con):
 
 def load_trip_data(con):
    taxi_types = ['yellow', 'green']
-   years = range(2015, 2024)  # From 2015 to 2024
+   years = range(2015, 2025)  # From 2015 to 2024
 
 
    for taxi in taxi_types:
