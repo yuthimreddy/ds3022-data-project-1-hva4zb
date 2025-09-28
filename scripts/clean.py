@@ -1,7 +1,8 @@
 import duckdb
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename='clean.log')
+# defining log file:
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename='logs/clean.log')
 
 # Defining cleaning function:
 def clean_parquet():

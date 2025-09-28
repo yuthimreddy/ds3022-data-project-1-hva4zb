@@ -3,10 +3,10 @@ import os
 import logging
 import time
 
-
+# defining log file:
 logging.basicConfig(
    level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s',
-   filename='load.log'
+   filename='logs/load.log'
 )
 logger = logging.getLogger(__name__)
 

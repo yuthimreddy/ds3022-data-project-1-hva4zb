@@ -8,7 +8,7 @@ import os
 # defining log file:
 logging.basicConfig(
     level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s',
-    filename='analysis.log')
+    filename='logs/analysis.log')
 
 logger = logging.getLogger(__name__)
 
@@ -115,7 +115,7 @@ def analysis():
 
         # plotting taxis with their respective custom hex colors:
         colors = {'yellow':'#FFBF00', 'green':'#00693E'}
-        
+
         # making loop so we plot for both yellow and green taxis:
         for i, taxi in enumerate(['yellow', 'green']):
             ax = axes[i]
