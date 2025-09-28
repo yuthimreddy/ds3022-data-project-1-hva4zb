@@ -5,12 +5,14 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import os
 
+# defining log file:
 logging.basicConfig(
     level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s',
     filename='analysis.log')
 
 logger = logging.getLogger(__name__)
 
+# Analysis function to answer query questions asked:
 def analysis():
 
     con = None 
@@ -106,19 +108,18 @@ def analysis():
         
         plt.style.use('seaborn-v0_8-whitegrid')
         fig, ax = plt.subplots(figsize=(15, 8))
-        # making 2 subplots:
+        # making 2 subplots (one for yellow taxis and one for green):
         fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(15, 12), sharex=True)
         fig.suptitle('Total Monthly CO2 Emissions by Taxi Type (2015-2024)', fontsize=16, y=0.95)
         
 
-        # plotting taxis with their respective colors:
+        # plotting taxis with their respective custom hex colors:
         colors = {'yellow':'#FFBF00', 'green':'#00693E'}
-
-
+        
         # making loop so we plot for both yellow and green taxis:
         for i, taxi in enumerate(['yellow', 'green']):
             ax = axes[i]
-            subset = plot_df[plot_df['taxi_type'] == taxi]
+            subset = plot_df[plot_df['taxi_type'] == taxi] #plot data for each taxi type
             ax.plot(subset['date'], subset['total_co2'], label=f'{taxi.title()} Taxis', marker='o', color=colors[taxi])
         
             ax.set_title(f'{taxi.title()} Taxis', fontsize=14)
@@ -141,7 +142,7 @@ def analysis():
         print(f"\nPlot successfully saved to {plot_filename}")
         logger.info(f"Plot successfully saved to {plot_filename}")
 
-        
+    # error handling:
     except Exception as e:
         print(f"Error during analysis: {e}")
         logger.error(f"Error during analysis: {e}") 

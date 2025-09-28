@@ -3,6 +3,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename='clean.log')
 
+# Defining cleaning function:
 def clean_parquet():
     
     con = None

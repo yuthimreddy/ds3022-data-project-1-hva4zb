@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 # Step 1: First creating our tables and setting up our DB
+# only selecting the 4 columns of interest (pickup_datetime, dropoff_datetime, passenger_count, trip_distance)
 def setup_database_and_tables(con):
    logger.info("Setting up database and tables for yellow_trips, green_trips, vehicle_emissions") # log statement
 
@@ -52,8 +53,7 @@ def setup_database_and_tables(con):
 
 
 # Step 2: Loading in all the trip data from the last 10 years for both yellow and green taxi rides
-# All the data will be programmatically pulled instead of having to manually write 200+
-# lines of code to load each individual file.
+# All the data will be programmatically pulled through a for-loop
 
 
 def load_trip_data(con):
